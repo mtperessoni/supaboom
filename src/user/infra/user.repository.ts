@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { createClient, SupabaseClient } from '@supabase/supabase-js';
+import { SupabaseClient } from '@supabase/supabase-js';
 
 import { RepositoryError } from '@/shared/core/errors/repository-error';
 import { err, ResponseResult } from '@/shared/core/response/response-result';
@@ -11,14 +11,7 @@ import {
 
 @Injectable()
 export class UserRepository implements IUserRepository {
-  private supabase: SupabaseClient;
-
-  constructor() {
-    this.supabase = createClient(
-      String(process.env.SUPABASE_URL),
-      String(process.env.SUPABASE_ANON_KEY),
-    );
-  }
+  constructor(private readonly supabase: SupabaseClient) {}
 
   async updateUser(
     userId: string,

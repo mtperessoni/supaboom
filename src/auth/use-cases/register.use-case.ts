@@ -21,6 +21,7 @@ export class RegiserUseCase {
     if (!passwordRegex.test(password)) {
       return err(new ServiceError('Esta senha não é válida'));
     }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [_, error] = await this.authRepository.register(email, password);
     if (error) return [false, error];
     return [true, null];
